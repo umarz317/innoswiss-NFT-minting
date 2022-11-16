@@ -37,7 +37,7 @@ function App() {
     >
       <>
         <div className="App">
-          <Snowfall/>
+          <Snowfall style={{height:'100vh'}}/>
         {/* <img src={bg} className="bgimg"/> */}
 
           {login ?
