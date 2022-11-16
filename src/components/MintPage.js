@@ -40,7 +40,7 @@ const MintPage = () => {
   const [loading,setLoading] = useState(false)
   const [message,setMessage] = useState("Loading...")
   const url = 'https://santafloki.mypinata.cloud/ipfs'
-  const cid = '/QmSw4DZPqSbyUKYh4MLSYswf2Xje9F9g7UnTYydJsScqkE/'
+  const cid = '/QmYTZJgpMdbHuGJbAxSTwnwHbaMr98gU4RNqUdxbH6NnAW/'
 
   async function getMintedNFTsImage(mintedID,mintedCount){
     var nftArray = []
