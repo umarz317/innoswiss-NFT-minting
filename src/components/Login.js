@@ -14,7 +14,7 @@ const Login = () => {
   const [login, setLogin, provider, setProvider, accounts, setAccounts, totalMinted, setTotalMinted, contractAddress, contractABI,, isMetamaskAvailable, setIsMetamaskAvailable] =
     useContext(appContext);
 
-  const rpcURL = "https://data-seed-prebsc-1-s1.binance.org:8545/";
+  const rpcURL = "https://bsc-dataseed1.binance.org/";
 
   useEffect(() => {
     getTotalSupply();
@@ -49,7 +49,7 @@ const Login = () => {
       console.log(chain);
     }
       if (Account.length > 0) {
-        if(chain==97){
+        if(chain==56){
         setLogin(true);
         setAccounts(Account);
         console.log(Provider);

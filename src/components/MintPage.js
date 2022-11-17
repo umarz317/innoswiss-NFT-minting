@@ -22,13 +22,53 @@ const MintPage = () => {
   ] = useContext(appContext);
 
   useEffect(() => {
+    async function mintCheck(){
+      var balance = ethers.utils.formatEther(await provider.getBalance(accounts[0]))
+      setBalance(balance)
+      if(parseFloat(balance)<0.4){
+        setWarning("**Low Balance**")
+      }
+      else{
+        var btn = document.getElementById('mintBTN')
+        btn.disabled = false
+        btn.innerHTML = 'MINT!'
+      }
+    }
+    if(balance<0){
+      mintCheck()
+    }
     return () => {
-      console.log("Component unmounted")
       window.ethereum.removeListener('chainChanged', ()=>{});
       window.ethereum.removeListener('accountsChanged', ()=>{});
       window.ethereum.removeListener('disconnect', ()=>{});
     }
   }, []);
+
+  function quantityClick(bool){
+    var amount = mintAmount
+    if(bool){
+      amount+=1
+      setMintAmount(amount)
+    }
+    else{
+      amount-=1
+      setMintAmount(amount)
+    }
+    if(parseFloat(balance)<0.4*(amount)){
+      console.log('low')
+      setWarning("**Low Balance**")
+      var btn = document.getElementById('mintBTN')
+      btn.disabled = true
+      btn.innerHTML = '...'
+    }
+    else{
+      setWarning('')
+      var btn = document.getElementById('mintBTN')
+      btn.disabled = false
+      btn.innerHTML = 'MINT!'
+    }
+  }
+  
 
   window.ethereum.on('accountsChanged', () =>{setLogin(false)});
   window.ethereum.on('disconnect', () =>{setLogin(false)});
@@ -39,8 +79,10 @@ const MintPage = () => {
   const [mintedNFTs,setMintedNFTs] = useState([]) 
   const [loading,setLoading] = useState(false)
   const [message,setMessage] = useState("Loading...")
+  const [warning,setWarning] = useState("")
   const url = 'https://santafloki.mypinata.cloud/ipfs'
   const cid = '/QmYTZJgpMdbHuGJbAxSTwnwHbaMr98gU4RNqUdxbH6NnAW/'
+  const [balance,setBalance] = useState(-1)
 
   async function getMintedNFTsImage(mintedID,mintedCount){
     var nftArray = []
@@ -56,6 +98,8 @@ const MintPage = () => {
     setMintedNFTs(nftArray);
     setLoading(false);
   }
+
+  
   
 
   async function getMintedID() {
@@ -82,7 +126,7 @@ const MintPage = () => {
         provider.getSigner()
     );
     try {
-      var value = mintAmount*0.25
+      var value = mintAmount*0.4
       value = ethers.utils.parseEther(value.toString())
       console.log(value.toString())
       const response = await contract.mintBatch(mintAmount,{value:value.toString()});
@@ -133,13 +177,13 @@ const MintPage = () => {
             <h1 className="nftsGifText">?</h1>
           </div>
           <div className="mintBtnDiv">
-          <h4 style={{position:'absolute',right:'-70px'}}>{mintAmount*0.25} <SiBinance style={{width:'20px',height:'20px',color:'#F3BA2F'}}/></h4>
+          <h4 style={{position:'absolute',right:'-70px'}}>{Math.round((mintAmount*0.4)*10)/10} <SiBinance style={{width:'20px',height:'20px',color:'#F3BA2F'}}/></h4>
   
           <button className="mintBtn"
             style={{ left: "15px" }}
             onClick={() => {
               {
-                mintAmount > 1 ? setMintAmount(mintAmount - 1) : <></>;
+                mintAmount > 1 ? quantityClick(false) : <></>;
               }
             }}
           >
@@ -152,16 +196,17 @@ const MintPage = () => {
             style={{ right: "15px" }}
             onClick={() => {
               {
-                mintAmount < 4 ? setMintAmount(mintAmount + 1) : <></>;
+                mintAmount < 4 ? quantityClick(true) : <></>;
               }
             }}
           >
             +
           </button>
           <div style={{marginTop:'30px'}}>
-            <button onClick={MintFunction} className="mintBtn">Mint</button>
+            <button disabled id='mintBTN' onClick={MintFunction} className="mintBtn">...</button>
           </div>
-          <h4 style={{position:'absolute',bottom:'-10px',right:'-70px'}}>0.25 <SiBinance style={{width:'20px',height:'20px',color:'#F3BA2F'}}/> / NFT</h4>
+          <h4 style={{position:'absolute',bottom:'-10px',right:'-70px'}}>0.4 <SiBinance style={{width:'20px',height:'20px',color:'#F3BA2F'}}/> / NFT</h4>
+          <h4 id='warning' style={{position:'absolute',bottom:'-30px',right:'-90px',color:'yellow'}}>{warning}</h4>
           </div>
           </>:
 
