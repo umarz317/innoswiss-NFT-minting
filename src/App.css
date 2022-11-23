@@ -1,5 +1,5 @@
 body{
-    background-color: rgba(161, 0, 0, 0.967);
+    background-color: rgb(161, 0, 0, 0.967);
     background-repeat: no-repeat;
     background-position-x:100px;
     background-position-y:bottom;
@@ -25,8 +25,8 @@ body{
 .buttonConnect{
     cursor: pointer;
     border-width: 4px;
-    border-color:  #e21c21;
-    background-color: #e21c21;
+    border-color:  #ac140d;
+    background-color: #ac140d;
     color: white;
     border-radius: 20px;
     padding: 10px;
@@ -35,25 +35,23 @@ body{
     font-family: myFont;
     position: absolute;
     bottom:30px;
+    border: orange 2px solid;
 }
 .buttonConnect:hover{
-    background-color:  #e21c21;
+    background-color:  #ac140d;
 }
 
 .buttonBlue{
     cursor: pointer;
-    border-width: 4px;
-    border-color: #e21c21;
-    background-color: #e21c21;
+    background-color: #ac140d;
     color: white;
-    border-radius: 20px;
     padding: 10px;
-    border-style: solid;
     border-radius: 15px;
     font-family: myFont;
+    border: orange 2px solid !important;
 }
 .buttonBlue:hover{
-    background-color:  #e21c21;
+    background-color:  #ac140d;
 }
 
 .logoDiv{
@@ -63,8 +61,10 @@ body{
     justify-content: center;
     top:0px;
     width: 100%;
-    background-color: #e21c21;
+    background-color: #ac140d;
     border-radius: 20px;
+    border: orange 2px solid;
+    border-top: 0;
 }
 
 .outline{
@@ -84,7 +84,7 @@ body{
 }
 
 .transparentBox{
-    background-color: #1275c6ec;
+    background-color: #184e18f3;
     color: white;
     border-radius: 20px;
     position: relative;
@@ -93,6 +93,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    border: orange 2px solid;
 }
 
 .mintBtn{
@@ -100,15 +101,15 @@ body{
     font-family: myFont;
     color: white;
     border-width: 4px;
-    border-color:  #e21c21;
-    background-color:  #e21c21;
+    background-color:  #ac140d;
     border-radius: 20px;
     border-style: solid;
     font-size: large;
     padding: 10px;
+    border: orange 2px solid;
 }
 .mintBtn:hover{
-    background-color:  #e21c21;
+    background-color:  #ac140d;
 }
 
 .mintBtnDiv{

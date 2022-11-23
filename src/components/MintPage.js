@@ -161,7 +161,7 @@ const MintPage = () => {
       <div className="Container">
         <div className="transparentBox">
         <div className="logoDiv">
-          <img width={100} height={100} src={logo} />
+          <img width={55} height={55} style={{marginRight:"5px"}} src={logo} />
           <h1>SantaFloki</h1>
           <h3 style={{position:'absolute',bottom:'-15px',right:'10px'}} className="altfont">Anniversary Edition</h3>
           </div>

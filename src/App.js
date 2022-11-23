@@ -2,7 +2,6 @@ import React, { useState, useEffect, createContext } from "react";
 import "./App.css";
 import Login from "./components/Login";
 import MintPage from "./components/MintPage";
-import bg from './assets/images/bgimg.png'
 import Snowfall from "react-snowfall";
 export const appContext = createContext();
 
