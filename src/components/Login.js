@@ -1,66 +1,38 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ethers } from "ethers";
 import { appContext } from "../App";
-import logo from "../assets/images/icon.png";
-import WalletConnectProvider from "@walletconnect/web3-provider";
+import logo from "../assets/images/logo.png";
 import { providers } from "ethers";
+import { useAccount, useConnect } from "wagmi";
+import { InjectedConnector } from "@wagmi/core";
 
 const Login = () => {
 
-  const [error,setError]=useState("");
-  const [saleComplete,setSaleComplete] = useState(false);
-  const [loading,setLoading]=useState(true)
+  const [error, setError] = useState("");
+  const [totalMinted,setTotalMinted] = useState()
+  const [saleComplete, setSaleComplete] = useState(false);
+  const [loading, setLoading] = useState(true)
 
-  const [login, setLogin, provider, setProvider, accounts, setAccounts, totalMinted, setTotalMinted, contractAddress, contractABI,, isMetamaskAvailable, setIsMetamaskAvailable] =
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
+
+  const [contractAddress, contractABI] =
     useContext(appContext);
 
-  const rpcURL = "https://bsc-dataseed1.binance.org/";
+  //deployment
+  // const rpcURL = "https://bsc-dataseed1.binance.org/";
+  //testing
+  const rpcURL = "https://rpc-mumbai.maticvigil.com/";
+
 
   useEffect(() => {
     getTotalSupply();
-    if (isMetamaskAvailable == null) {
-      if(window.ethereum!=null){
-        setIsMetamaskAvailable(true)
-      }
-      else{
-        setIsMetamaskAvailable(false)
-      }
-    }
   }, []);
 
   async function ConnectWallet() {
-    if (window.ethereum) {
-      var Account = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      var Provider = new ethers.providers.Web3Provider(window.ethereum);
-      var signer = Provider.getSigner();
-      var chain = (await signer.getChainId());
-      console.log(chain);
-    }
-    else {
-      const provider = new WalletConnectProvider({
-        rpc:rpcURL
-      });
-      var Account = await provider.enable();
-      var Provider = new providers.Web3Provider(provider);
-      var signer = Provider.getSigner();
-      var chain = (await signer.getChainId());
-      console.log(chain);
-    }
-      if (Account.length > 0) {
-        if(chain==56){
-        setLogin(true);
-        setAccounts(Account);
-        console.log(Provider);
-        setProvider(Provider);
-        }
-        else{
-          setError("Please network switch to BSC");
-        }
-      }
-      console.log(chain);
-    }
+    connect()
+  }
 
   async function getTotalSupply() {
     const contract = new ethers.Contract(
@@ -74,7 +46,7 @@ const Login = () => {
       const response = (await contract.totalSupply()).toString();
       setTotalMinted(response);
       setLoading(false);
-      if(response===500){
+      if (response === 500) {
         setSaleComplete(true);
       }
       console.log(response);
@@ -85,27 +57,27 @@ const Login = () => {
 
   return (
     <div className="Container">
-       
+
       <div className="transparentBox">
         <div className="logoDiv">
-          <img width={55} height={55} style={{marginRight:"5px"}} src={logo} />
-          <h1>SantaFloki</h1>
-          <h3 style={{position:'absolute',bottom:'-15px',right:'10px'}} className="altfont">Anniversary Edition</h3>
+          <img width={55} height={55} style={{ marginRight: "5px" }} src={logo} />
+          <h2>The Council Of AI</h2>
+          <h4 style={{ position: 'absolute', bottom: '-15px', right: '10px' }} className="altfont">Genesis collection</h4>
         </div>
         <div>
-          <h3> {totalMinted}/500 NFTs Minted!</h3>
+          <h3> {totalMinted}/1000 NFTs Minted!</h3>
         </div>
         <button
           className="buttonConnect"
           onClick={() => {
-            if(!saleComplete&&!loading)
+            if (!saleComplete && !loading)
               ConnectWallet();
           }}
         >
-          {!loading?<>{saleComplete?<>Sale Completed..</>:<>Connect Wallet</>}</>:<>...</>}
+          {!loading ? <>{saleComplete ? <>Sale Completed..</> : <>Connect Wallet</>}</> : <>...</>}
         </button>
-        <h4 style={{ position: 'absolute', bottom: '60px' }}>Connect Wallet To Mint!</h4>
-        <h5 style={{ position: 'absolute', bottom: '0',marginBottom:'5px',letterSpacing:"1.5px" ,color:"yellow"}}>{error}</h5>
+        <h4 style={{ position: 'absolute', bottom: '65px' }}>Connect Wallet To Mint!</h4>
+        <h5 style={{ position: 'absolute', bottom: '0', marginBottom: '5px', letterSpacing: "1.5px", color: "yellow" }}>{error}</h5>
       </div>
     </div>
   );
