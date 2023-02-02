@@ -15,6 +15,7 @@ const Login = () => {
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
+    chainId:80001
   })
 
   const [contractAddress, contractABI] =

@@ -40,7 +40,8 @@ body{
     border: var(--color1) 2px solid;
 }
 .buttonConnect:hover{
-    background-color:  #ac140d;
+    background-color:  var(--color2);
+    color: white;
 }
 
 .buttonBlue{
@@ -53,7 +54,8 @@ body{
     border: orange 2px solid !important;
 }
 .buttonBlue:hover{
-    background-color:  #ac140d;
+    background-color:  var(--color2);
+    color: white;
 }
 
 .logoDiv{
@@ -111,7 +113,8 @@ body{
     border: var(--color1) 2px solid;
 }
 .mintBtn:hover{
-    background-color:  #ac140d;
+    background-color:  var(--color2);
+    color: white;
 }
 
 .mintBtnDiv{
