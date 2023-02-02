@@ -151,6 +151,7 @@ const MintPage = () => {
     <>
       <div className="Container">
         <div className="transparentBox">
+        <h4 style={{ position: 'absolute', right: '10px' ,bottom:'80px'}}>{Math.round((mintAmount * price) * 10) / 10} <img className="TokenIcon" src={polygonIcon} /></h4>
           <div className="logoDiv">
             <img width={55} height={55} style={{ marginRight: "5px" }} src={logo} />
             <h2>The Council Of AI</h2>
@@ -167,9 +168,9 @@ const MintPage = () => {
                       <img className="nftsGif" width={180} height={264} src={gif} />
                       <h1 className="nftsGifText">?</h1>
                     </div>
+                    
                     <div className="mintBtnDiv">
-                      <h4 style={{ position: 'absolute', right: '-95px' }}>{Math.round((mintAmount * price) * 10) / 10} <img className="TokenIcon" src={polygonIcon} /></h4>
-
+                      
                       <button className="mintBtn"
                         style={{ left: "15px", backgroundColor: '#5dac0d', border: '0', color: 'white' }}
                         onClick={() => {
