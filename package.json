@@ -28,7 +28,8 @@
   },
   "eslintIgnore": [
     "node_modules",
-    "build/*"
+    "build/*",
+    "src/songbird.ts"
   ],
   "browserslist": {
     "production": [
