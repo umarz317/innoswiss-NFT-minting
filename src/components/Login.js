@@ -15,7 +15,7 @@ const Login = () => {
 
   const { connect } = useConnect({
     connector: new InjectedConnector(),
-    chainId:80001
+    chainId:19
   })
 
   const [contractAddress, contractABI] =
@@ -24,7 +24,7 @@ const Login = () => {
   //deployment
   // const rpcURL = "https://bsc-dataseed1.binance.org/";
   //testing
-  const rpcURL = "https://rpc-mumbai.maticvigil.com/";
+  const rpcURL = "https://songbird.towolabs.com/rpc";
 
 
   useEffect(() => {

@@ -6,26 +6,25 @@ import { configureChains, createClient, useAccount, WagmiConfig } from "wagmi";
 import { polygonMumbai } from "@wagmi/chains";
 import { publicProvider } from "wagmi/providers/public"
 import contractABI from './assets/abi.json'
+import { songbird } from "./songbird.ts";
 
 export const appContext = createContext();
 
 function App() {
 
-  const { chains, provider, webSocketProvider } = configureChains(
-    [polygonMumbai], [publicProvider()]
-  )
+  
 
-  const client = createClient({
-    autoConnect: true, provider, webSocketProvider
-  })
+ 
 
-  const { address, isConnected } = useAccount()
+  const { isConnected } = useAccount()
 
+  useEffect(()=>{
+    console.log(isConnected)
+  },[isConnected]);
 
-  const contractAddress = "0xBe9662C5BFEC5fBb9928EdCAF8dAe752C444dE1d";
+  const contractAddress = "0x21a8075deDe971Dd8a5E88Eb3Ef608e114d65fb2";
 
   return (
-    <WagmiConfig client={client}>
       <appContext.Provider
         value={[
 
@@ -51,7 +50,6 @@ function App() {
           </div>
         </>
       </appContext.Provider>
-    </WagmiConfig>
   );
 }
 

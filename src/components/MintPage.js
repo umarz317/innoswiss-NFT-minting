@@ -4,6 +4,7 @@ import { appContext } from "../App";
 import logo from "../assets/images/logo.png";
 import gif from '../assets/images/nfts.gif';
 import polygonIcon from '../assets/images/polygon-icon.webp'
+import songbird from '../assets/images/songbird-alt.svg'
 import { useSigner } from "wagmi";
 
 
@@ -26,7 +27,7 @@ const MintPage = () => {
     }
   })
 
-  const price = 0.1
+  const price = 6000
 
   const [
     contractAddress,
@@ -151,7 +152,7 @@ const MintPage = () => {
     <>
       <div className="Container">
         <div className="transparentBox">
-          <h4 style={{ position: 'absolute', right: '10px', bottom: '80px' }}>{Math.round((mintAmount * price) * 10) / 10} <img className="TokenIcon" src={polygonIcon} /></h4>
+          <h4 style={{ position: 'absolute', right: '10px', bottom: '80px' }}>{Math.round((mintAmount * price) * 10) / 10} <img className="TokenIcon" src={songbird} /></h4>
           <div className="logoDiv">
             <img width={55} height={55} style={{ marginLeft: "-40px", marginRight: '5px' }} src={logo} />
             <h2>The Council Of AI</h2>
@@ -197,7 +198,7 @@ const MintPage = () => {
                       <div style={{ marginTop: '30px' }}>
                         <button id='mintBTN' onClick={MintFunction} className="mintBtn">{loading | !canMint ? "..." : "MINT!"}</button>
                       </div>
-                      <h4 style={{ position: 'absolute', bottom: '-10px', right: '-70px' }}>{price} <img className="TokenIcon" src={polygonIcon} /> / NFT</h4>
+                      <h4 style={{ position: 'absolute', bottom: '-10px', right: '-70px' }}>{price} <img className="TokenIcon" src={songbird} /> / NFT</h4>
                       <h5 id='warning' style={{ position: 'absolute', bottom: '-30px', right: '-90px', color: 'orange' }}>{warning}</h5>
                     </div>
                   </> :
