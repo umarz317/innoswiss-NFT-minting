@@ -12,7 +12,7 @@ const MintPage = () => {
   const [showNFTs, setShowNFTs] = useState(false)
   const [mintAmount, setMintAmount] = useState(1);
   const [mintedNFTs, setMintedNFTs] = useState([])
-  const [canMint,setCanMint] = useState(false)
+  const [canMint, setCanMint] = useState(false)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState("Loading...")
   const [warning, setWarning] = useState("")
@@ -42,18 +42,18 @@ const MintPage = () => {
           setWarning("**Low Balance**")
           setCanMint(false)
         }
-        else{
+        else {
           setCanMint(true)
         }
       }
-      if (balance < 0 ) {
+      if (balance < 0) {
         mintCheck()
       }
     }
     return () => {
 
     }
-  }, [isFetched,showNFTs]);
+  }, [isFetched, showNFTs]);
 
   function quantityClick(bool) {
     var amount = mintAmount
@@ -115,10 +115,10 @@ const MintPage = () => {
     );
     try {
       var value = mintAmount * price
-      value=Math.round(value*10)/10
+      value = Math.round(value * 10) / 10
       value = ethers.utils.parseEther(value.toString())
       console.log(value.toString())
-      const response = await contract.mintBatch(mintAmount,{value:value});
+      const response = await contract.mintBatch(mintAmount, { value: value });
       const tx = await response.wait()
       if (tx['status'] === 1) {
         setMessage("Minted! Loading NFTs...")
@@ -151,11 +151,11 @@ const MintPage = () => {
     <>
       <div className="Container">
         <div className="transparentBox">
-        <h4 style={{ position: 'absolute', right: '10px' ,bottom:'80px'}}>{Math.round((mintAmount * price) * 10) / 10} <img className="TokenIcon" src={polygonIcon} /></h4>
+          <h4 style={{ position: 'absolute', right: '10px', bottom: '80px' }}>{Math.round((mintAmount * price) * 10) / 10} <img className="TokenIcon" src={polygonIcon} /></h4>
           <div className="logoDiv">
-            <img width={55} height={55} style={{ marginRight: "5px" }} src={logo} />
+            <img width={55} height={55} style={{ marginLeft: "-40px", marginRight: '5px' }} src={logo} />
             <h2>The Council Of AI</h2>
-            <h4 style={{ position: 'absolute', bottom: '-15px', right: '10px' }} className="altfont">Genesis collection</h4>
+            <h4 style={{ position: 'absolute', bottom: '-18px' }} className="altfont">Genesis collection</h4>
           </div>
           <>
             {loading ?
@@ -168,9 +168,9 @@ const MintPage = () => {
                       <img className="nftsGif" width={180} height={264} src={gif} />
                       <h1 className="nftsGifText">?</h1>
                     </div>
-                    
+
                     <div className="mintBtnDiv">
-                      
+
                       <button className="mintBtn"
                         style={{ left: "15px", backgroundColor: '#5dac0d', border: '0', color: 'white' }}
                         onClick={() => {
@@ -195,7 +195,7 @@ const MintPage = () => {
                         +
                       </button>
                       <div style={{ marginTop: '30px' }}>
-                        <button id='mintBTN' onClick={MintFunction} className="mintBtn">{loading|!canMint?"...":"MINT!"}</button>
+                        <button id='mintBTN' onClick={MintFunction} className="mintBtn">{loading | !canMint ? "..." : "MINT!"}</button>
                       </div>
                       <h4 style={{ position: 'absolute', bottom: '-10px', right: '-70px' }}>{price} <img className="TokenIcon" src={polygonIcon} /> / NFT</h4>
                       <h5 id='warning' style={{ position: 'absolute', bottom: '-30px', right: '-90px', color: 'orange' }}>{warning}</h5>

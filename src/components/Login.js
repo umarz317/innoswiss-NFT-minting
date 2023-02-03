@@ -61,9 +61,9 @@ const Login = () => {
 
       <div className="transparentBox">
         <div className="logoDiv">
-          <img width={55} height={55} style={{ marginRight: "5px" }} src={logo} />
+          <img width={55} height={55} style={{ marginLeft: "-40px",marginRight:'5px' }} src={logo} />
           <h2>The Council Of AI</h2>
-          <h4 style={{ position: 'absolute', bottom: '-15px', right: '10px' }} className="altfont">Genesis collection</h4>
+          <h4 style={{ position: 'absolute', bottom: '-18px' }} className="altfont">Genesis collection</h4>
         </div>
         <div>
           <h3> {totalMinted}/1000 NFTs Minted!</h3>
