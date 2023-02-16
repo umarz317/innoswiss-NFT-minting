@@ -5,12 +5,13 @@ import logo from "../assets/images/logo.png";
 import { providers } from "ethers";
 import { useAccount, useConnect } from "wagmi";
 import { InjectedConnector } from "@wagmi/core";
+import contractABI from '../assets/abi.json'
 
 const Login = () => {
 
   const [error, setError] = useState("");
   const [totalMinted,setTotalMinted] = useState()
-  const [saleComplete, setSaleComplete] = useState(false);
+  const [,saleComplete, setSaleComplete] = useContext(appContext)
   const [loading, setLoading] = useState(true)
 
   const { connect } = useConnect({
@@ -18,7 +19,7 @@ const Login = () => {
     chainId:19
   })
 
-  const [contractAddress, contractABI] =
+  const [contractAddress] =
     useContext(appContext);
 
   //deployment
@@ -66,7 +67,7 @@ const Login = () => {
           <h4 style={{ position: 'absolute', bottom: '-18px' }} className="altfont">Genesis collection</h4>
         </div>
         <div>
-          <h3> {totalMinted}/1025 NFTs Minted!</h3>
+          <h3> {totalMinted}/1026 NFTs Minted!</h3>
         </div>
         <button
           className="buttonConnect"

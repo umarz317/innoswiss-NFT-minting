@@ -6,7 +6,7 @@ import gif from '../assets/images/nfts.gif';
 import polygonIcon from '../assets/images/polygon-icon.webp'
 import songbird from '../assets/images/songbird-alt.svg'
 import { useSigner } from "wagmi";
-
+import contractABI from '../assets/abi.json'
 
 const MintPage = () => {
 
@@ -27,15 +27,35 @@ const MintPage = () => {
     }
   })
 
+  const rpcURL = "https://songbird.towolabs.com/rpc";
+
   const price = 6000
 
   const [
     contractAddress,
-    contractABI,
+    saleComplete, setSaleComplete
   ] = useContext(appContext);
 
   useEffect(() => {
     if (isFetched) {
+      async function getTotalSupply() {
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          new ethers.providers.getDefaultProvider(
+            rpcURL
+          )
+        );
+        try {
+          const response = (await contract.totalSupply()).toString();
+          if (response > 1000) {
+            setSaleComplete(true);
+          }
+          console.log(response);
+        } catch (err) {
+          console.log(err);
+        }
+      }
       async function mintCheck() {
         var balance = ethers.utils.formatEther(await signer.getBalance())
         setBalance(balance)
@@ -48,6 +68,7 @@ const MintPage = () => {
         }
       }
       if (balance < 0) {
+        getTotalSupply()
         mintCheck()
       }
     }
@@ -106,6 +127,10 @@ const MintPage = () => {
   }
 
   const MintFunction = async () => {
+    if(saleComplete|!canMint){
+      return
+    }
+    else if(saleComplete==false && canMint == true){
     setLoading(true);
     setMessage("Minting...!");
     var mintedID = await getMintedID()
@@ -131,7 +156,7 @@ const MintPage = () => {
       setMessage('Failed!');
       resetLoading();
     }
-
+  }
   }
 
   async function resetLoading() {
@@ -196,10 +221,10 @@ const MintPage = () => {
                         +
                       </button>
                       <div style={{ marginTop: '30px' }}>
-                        <button id='mintBTN' onClick={MintFunction} className="mintBtn">{loading | !canMint ? "..." : "MINT!"}</button>
+                        <button id='mintBTN' onClick={MintFunction} className="mintBtn">{loading ? "..." : !saleComplete? canMint?"MINT!":"..." :"SOLD OUT!"}</button>
                       </div>
-                      <h4 style={{ position: 'absolute', bottom: '-10px', right: '-70px' }}>{price} <img className="TokenIcon" src={songbird} /> / NFT</h4>
-                      <h5 id='warning' style={{ position: 'absolute', bottom: '-30px', right: '-90px', color: 'orange' }}>{warning}</h5>
+                      <h4 style={{ position: 'absolute', bottom: '-10px', right: '-100px' }}>{price} <img className="TokenIcon" src={songbird} /> / NFT</h4>
+                      <h5 id='warning' style={{ position: 'absolute', bottom: '-30px', right: '-95px', color: 'orange' }}>{warning}</h5>
                     </div>
                   </> :
 
