@@ -47,7 +47,7 @@ const Login = () => {
       const response = (await contract.totalSupply()).toString();
       setTotalMinted(response);
       setLoading(false);
-      if (response === 500) {
+      if (response > 1000) {
         setSaleComplete(true);
       }
       console.log(response);
@@ -66,7 +66,7 @@ const Login = () => {
           <h4 style={{ position: 'absolute', bottom: '-18px' }} className="altfont">Genesis collection</h4>
         </div>
         <div>
-          <h3> {totalMinted}/1000 NFTs Minted!</h3>
+          <h3> {totalMinted}/1025 NFTs Minted!</h3>
         </div>
         <button
           className="buttonConnect"
@@ -75,7 +75,7 @@ const Login = () => {
               ConnectWallet();
           }}
         >
-          {!loading ? <>{saleComplete ? <>Sale Completed..</> : <>Connect Wallet</>}</> : <>...</>}
+          {!loading ? <>{saleComplete ? <>Sold OUT!</> : <>Connect Wallet</>}</> : <>...</>}
         </button>
         <h4 style={{ position: 'absolute', bottom: '65px' }}>Connect Wallet To Mint!</h4>
         <h5 style={{ position: 'absolute', bottom: '0', marginBottom: '5px', letterSpacing: "1.5px", color: "yellow" }}>{error}</h5>
